@@ -1,0 +1,36 @@
+---
+const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/categories/")
+const posts = await res.json()
+
+import '../css/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+
+//meta title keyword descriptionの設定
+const metaTitle = "ブログページ";
+const metaeDesc = "Astroの練習用のページのブログ一覧";
+const metaKeyword = "Astroの練習用のページ,blog,Astro,study";
+---
+
+<BaseLayout metaTitle={metaTitle} metaeDesc={metaeDesc} metaKeyword={metaKeyword}>
+  <h1>Astro</h1>
+		<div class="wrapper">
+      <section>
+        <h2>記事一覧</h2>
+        <div class="article-list">
+          <ul>
+            {posts.map((post) =>
+            <li>
+              <a href={`/category/` + post.id}>
+                <article>
+                  <div set:html={post.name} />
+                </article>
+              </a>
+            </li>
+            )}
+          </ul>
+			  </div>
+      </section>
+			
+		</div>
+</BaseLayout>

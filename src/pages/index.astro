@@ -1,21 +1,19 @@
 ---
 const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts/")
 const posts = await res.json()
+
+import '../css/global.css';
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+//meta title keyword descriptionの設定
+const metaTitle = "ホームページ";
+const metaeDesc = "Astroの練習用のページ";
+const metaKeyword = "Astroの練習用のページ,Astro,study";
+
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<a href="/">ホーム</a>
-    <a href="/news/">新着情報</a>
-    <a href="/blog/">ブログ</a>
-		<h1>Astro</h1>
+<BaseLayout metaTitle={metaTitle} metaeDesc={metaeDesc} metaKeyword={metaKeyword}>
+  <h1>Astro</h1>
 		<div class="wrapper">
 			<section>
 				<h2>Blog記事</h2>
@@ -24,7 +22,7 @@ const posts = await res.json()
 				<ul>
 					{posts.map((post) =>
 					<li>
-						<a href={post.id}>
+						<a href={`/blog/` + post.id}>
 						<article>
 							<h3 set:html={post.title.rendered} />
 							<time datetime="">{post.date.substring(0 , 10)}</time>
@@ -35,5 +33,4 @@ const posts = await res.json()
 				</ul>
 			</div>
 		</div>
-	</body>
-</html>
+</BaseLayout>

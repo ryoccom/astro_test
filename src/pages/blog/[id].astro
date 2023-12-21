@@ -14,20 +14,16 @@ export async function getStaticPaths() {
 const { id } = Astro.params
 const res_post = await fetch(`https://ryoccom.com/?rest_route=/wp/v2/posts/${id}`)
 const post = await res_post.json()
+
+import '../../css/global.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
 ---
 
-<!DOCTYPE html>
-<html lang="">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body>
+<BaseLayout metaTitle={post.title.rendered} metaeDesc={post.meta_field.meta_description} metaKeyword={post.meta_field.meta_keyword}>
   <div class="content">
-   
+    <h1 set:html={post.title.rendered} />
     <div set:html={post.content.rendered} />
     <p><a href="/">戻る</a></p>
   </div>
-</body>
-</html>
+</BaseLayout>
