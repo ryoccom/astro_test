@@ -8,7 +8,6 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 //カテゴリーの名前取得
 const categoryMap = new Map();
 posts.forEach(post => {
-  // ここでは、post.category_id がカテゴリーのIDを表すと仮定
   categoryMap.set(post.category_name, post.categories);
 });
 
