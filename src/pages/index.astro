@@ -1,5 +1,6 @@
 ---
-
+const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts/")
+const posts = await res.json()
 ---
 
 <html lang="en">
@@ -12,5 +13,24 @@
 	</head>
 	<body>
 		<h1>Astro</h1>
+		<div class="wrapper">
+			<section>
+				<h2>Blog記事</h2>
+			</section>
+			<div class="article-list">
+				<ul>
+					{posts.map((post) =>
+					<li>
+						<a href={post.id}>
+						<article>
+							<h3 set:html={post.title.rendered} />
+							<time datetime="">{post.date.substring(0 , 10)}</time>
+							<div set:html={post.excerpt.rendered} />
+						</article>
+					</li>
+					)}
+				</ul>
+			</div>
+		</div>
 	</body>
 </html>
