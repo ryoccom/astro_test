@@ -1,5 +1,5 @@
 ---
-const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts/")
+const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts&per_page=100")
 const posts = await res.json()
 
 import '../css/global.css';
@@ -26,7 +26,7 @@ const metaKeyword = "Astroの練習用のページ,blog,Astro,study";
           <ul>
             {Array.from(categoryMap).map(([name, id]) => (
               <li key={id}>
-                <a href={`/category/${id}`}>
+                <a href={`/categories/${id}`}>
                   <p>{name}</p>
                 </a>
               </li>

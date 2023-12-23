@@ -1,6 +1,6 @@
 ---
 export async function getStaticPaths() {
-  const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts/")
+  const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts&per_page=100")
   const posts = await res.json()
 
   const paths = posts.map((post) => ({

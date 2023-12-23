@@ -21,7 +21,7 @@ const metaKeyword = "Astroの練習用のページ,blog,Astro,study";
           <ul>
             {posts.map((post) =>
             <li>
-              <a href={`/category/` + post.id}>
+              <a href={`/categories/` + post.id}>
                 <article>
                   <div set:html={post.name} />
                 </article>
