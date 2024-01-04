@@ -1,5 +1,5 @@
 ---
-const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts&per_page=5")
+const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/posts&per_page=100")
 const posts = await res.json()
 
 import '../css/global.css';
@@ -18,7 +18,7 @@ const metaKeyword = "Astroの練習用のページ,Astro,study";
   <h1>Astro</h1>
 		<div class="wrapper">
 			<section>
-				<h2>Blog記事</h2>
+				<h2>新着記事</h2>
 			</section>
 			<div class="article-list">
 				<ul>
@@ -35,4 +35,6 @@ const metaKeyword = "Astroの練習用のページ,Astro,study";
 				</ul>
 			</div>
 		</div>
+
+
 </BaseLayout>
