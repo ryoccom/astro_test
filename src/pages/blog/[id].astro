@@ -31,10 +31,10 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
   </div>
   <div class="pagenation">
     {post.prev && post.prev.id ? (
-      <a href={`${post.prev.id}`}>前の記事</a>
+      <a href={`/blog/${post.prev.id}`}>前の記事</a>
     ) : null}
     {post.next && post.next.id ? (
-      <a href={`${post.next.id}`}>次の記事</a>
+      <a href={`/blog/${post.next.id}`}>次の記事</a>
     ) : null}
   </div>
 
