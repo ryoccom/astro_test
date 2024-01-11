@@ -1,0 +1,81 @@
+---
+export async function getStaticPaths() {
+  const res = await fetch("https://ryoccom.com/?rest_route=/wp/v2/categories/")
+  const posts = await res.json()
+
+  const paths = posts.map((post) => ({
+    params:{
+      slug: post.slug
+    },
+    props:{
+      id: post.id,
+      name: post.name
+    }
+  }))
+  return paths
+}
+const { slug } = Astro.params
+const { id , name } = Astro.props
+
+const res_category = await fetch(`https://ryoccom.com/?rest_route=/wp/v2/posts&categories=${ id }`)
+const categories = await res_category.json()
+
+
+let total = await res_category.headers.get("x-wp-totalpages");
+const currentPage = parseInt(slug, 10);
+
+const prevPage = currentPage > 1 ? currentPage - 1 : null;
+const nextPage = currentPage < total ? currentPage + 1 : null;
+
+
+import '../../css/global.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+---
+
+<BaseLayout>
+  <div class="content">
+      <h1 set:html={`「` + name + `」の記事一覧`} />
+    <ul>
+      {
+        categories.length > 0 ? (
+        categories.map((post) => (
+            <li>
+              <a href={`/blog/` + post.id}>
+                <h2 set:html={post.title.rendered} />
+                <div set:html={post.excerpt.rendered} />
+              </a>
+            </li>
+          ))
+        ) : (
+          <p>記事が見つかりませんでした。</p>
+        )
+      }
+    </ul>
+    {
+      categories.length > 0 ? (
+        <div class="pagenation">
+          <ul>
+            {prevPage && (
+              <li>
+                <a href={`/categories/${prevPage}/`}>前へ</a>
+              </li>
+            )}
+            {[...Array(Number(total))].map((posts, index) => (
+              <li>
+                <a href={`/categories/${slug}/`}>{index + 1}</a>
+              </li>
+            ))}
+            {nextPage && (
+              <li>
+                <a href={`/categories/${nextPage}/`}>次へ</a>
+              </li>
+            )}
+          </ul>
+        </div>
+      ) : (
+        <div class="pagenation" />
+      )
+    }
+    <p><a href="/categories/">戻る</a></p>
+  </div>
+</BaseLayout>

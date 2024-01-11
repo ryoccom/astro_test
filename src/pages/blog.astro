@@ -8,7 +8,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 //カテゴリーの名前取得
 const categoryMap = new Map();
 posts.forEach(post => {
-  categoryMap.set(post.category_name, post.categories);
+  categoryMap.set(post.category_details.name, post.categories);
 });
 
 const total = await res.headers.get('x-wp-totalpages')
